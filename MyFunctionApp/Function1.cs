@@ -12,10 +12,10 @@ namespace MyFunctionApp
 {
     public static class Function1
     {
-        [FunctionName("faridfunction")]
+        [FunctionName("Farid")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "Products/{id}")] HttpRequest req,
+            ILogger log, int id)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -26,7 +26,7 @@ namespace MyFunctionApp
             name = name ?? data?.name;
 
             string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
+                ? $"This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.\nID: {id}"
                 : $"Hello, {name}. This HTTP triggered function executed successfully.";
 
             return new OkObjectResult(responseMessage);
